@@ -33,15 +33,30 @@ const HomeScreen = ({ db }) => {
     // "Approved",
     switch (status) {
       case "Approved":
-        return "lightgreen"; // Red for high priority
+        return "#ff0000"; // Red for high priority
       case "Credit Investigation":
-        return "yellowgreen"; // Orange for medium priority
+        return "#ff5252"; // Orange for medium priority
       case "In Process":
         return "coral"; // Green for low priority
       case "Follow up":
-        return "lightgrey"; // Green for low priority
+        return "#ff7b7b"; // Green for low priority
       default:
-        return "cyan"; // Black for other cases
+        return "#ffbaba"; // Black for other cases
+    }
+  };
+
+  const changeFontColorStatus = (status) => {
+    switch (status) {
+      case "Approved":
+        return "white"; // Red for high priority
+      case "Credit Investigation":
+        return "white"; // Orange for medium priority
+      case "In Process":
+        return "black"; // Green for low priority
+      case "Follow up":
+        return "black"; // Green for low priority
+      default:
+        return "black"; // Black for other cases
     }
   };
 
@@ -159,10 +174,9 @@ const HomeScreen = ({ db }) => {
           // Sort the data array in descending order by id before setting it to the state
           data.sort((a, b) => b.id - a.id);
           setDocuments(data);
-          console.log(data);
         },
         (_, error) => {
-          console.log(error);
+          console.log(_, error);
         }
       );
     });
@@ -195,8 +209,8 @@ const HomeScreen = ({ db }) => {
           justifyContent: "space-around",
         }}
       >
-        <Text h4 h4Style={{ fontWeight: "300", fontSize: 26, color: "coral" }}>
-          AGENT NOEMI `EAS2411`
+        <Text h4 h4Style={{ fontWeight: "300", fontSize: 26, color: "red" }}>
+          AGENT NOEMI `ESA2411`
         </Text>
 
         <MaterialIcons
@@ -222,12 +236,26 @@ const HomeScreen = ({ db }) => {
         <Image
           source={require("../assets/noems.jpg")}
           PlaceholderContent={<ActivityIndicator />}
-          style={{ width: 50, height: 50, borderRadius: 50 }}
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 20,
+            borderWidth: 2,
+            borderColor: "red",
+            marginLeft: 10,
+          }}
         />
         <Image
-          source={require("../assets/horizontalbanner.webp")}
+          source={require("../assets/1.jpg")}
           PlaceholderContent={<ActivityIndicator />}
-          style={{ width: 200, height: 50, borderRadius: 50 }}
+          style={{
+            width: 200,
+            height: 60,
+            borderRadius: 20,
+            borderWidth: 1,
+            borderColor: "red",
+            marginLeft: 10,
+          }}
         />
       </View>
 
@@ -236,20 +264,31 @@ const HomeScreen = ({ db }) => {
           placeholder="Add new client"
           value={clientName}
           onChangeText={(e) => setClientName(e)}
+          style={{ borderRadius: 10, color: "white" }}
         />
         <Input
           placeholder="Note"
           value={note}
           onChangeText={(e) => setNote(e)}
         />
-        <Button
-          type="solid"
-          uppercase
-          raised
-          title={"Save Client"}
-          size="sm"
-          onPress={addClient}
-        />
+        <View
+          style={{
+            alignItems: "flex-end",
+            width: "100%",
+            borderRadius: 200,
+            marginBottom: 10,
+          }}
+        >
+          <Button
+            type="solid"
+            uppercase
+            raised
+            title={"Save Client"}
+            size="sm"
+            onPress={addClient}
+            color={"error"}
+          />
+        </View>
       </View>
       <ScrollView>
         {documents.map((document) => (
@@ -275,7 +314,11 @@ const HomeScreen = ({ db }) => {
                   width: "100%",
                 }}
               >
-                <ListItem.Title>{document.clientName}</ListItem.Title>
+                <ListItem.Title
+                  style={{ color: changeFontColorStatus(document.status) }}
+                >
+                  {document.clientName}
+                </ListItem.Title>
 
                 <Button
                   title={"delete"}
@@ -289,10 +332,13 @@ const HomeScreen = ({ db }) => {
                   db={db}
                   id={document.id}
                   fetchDocuments={fetchDocuments}
+                  changeFontColorStatus={changeFontColorStatus}
                 />
               </View>
               <View>
-                <Text>NOTE: {document.note}</Text>
+                <Text style={{ color: changeFontColorStatus(document.status) }}>
+                  NOTE: {document.note}
+                </Text>
               </View>
             </ListItem.Content>
           </ListItem>

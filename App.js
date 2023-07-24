@@ -76,9 +76,9 @@ function MyStack() {
   );
 }
 export default function App() {
-  console.log("why?");
   return (
-    <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+    <View style={{ flex: 1 }}>
+      <StatusBar style="light" barStyle={"light-content"} />
       <NavigationContainer>
         <MyStack />
       </NavigationContainer>

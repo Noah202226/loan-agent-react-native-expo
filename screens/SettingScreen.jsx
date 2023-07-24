@@ -4,7 +4,7 @@ import React from "react";
 const SettingScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Para ikaw na magseset lahat ng gusto mo palitan.</Text>
+      <Text>Data and Application Customization</Text>
     </View>
   );
 };

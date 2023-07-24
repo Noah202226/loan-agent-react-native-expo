@@ -6,6 +6,10 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "androidStatusBar": {
+      "backgroundColor": "#18c27f",
+      "translucent": false
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

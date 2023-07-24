@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Modal, TouchableHighlight, StyleSheet } from "react-native";
 import { Text } from "@rneui/themed";
 
-const Select = ({ status, db, id, fetchDocuments }) => {
+const Select = ({ status, db, id, fetchDocuments, changeFontColorStatus }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -48,13 +48,15 @@ const Select = ({ status, db, id, fetchDocuments }) => {
         }}
       >
         <View>
-          <Text>Status:</Text>
+          <Text style={{ color: changeFontColorStatus(status) }}>Status:</Text>
         </View>
         <TouchableHighlight
           onPress={() => setModalVisible(true)}
           style={{ padding: 10 }}
         >
-          <Text style={styles.selectedOption}>{selectedValue}</Text>
+          <Text style={{ color: changeFontColorStatus(status) }}>
+            {selectedValue}
+          </Text>
         </TouchableHighlight>
       </View>
       <Modal
